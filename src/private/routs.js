@@ -17,6 +17,11 @@ routs.get("/logar", (req, res) => {
           res.render("logar")
 })
 
+routs.get("/perfil/produtos", (req, res) => {
+
+          res.render("produtos")
+})
+
 routs.get("/session", (req, res) => {
           let user = new ModelUsers(req.body);
           // Veryfi secssion

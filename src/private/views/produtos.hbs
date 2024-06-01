@@ -1,0 +1,139 @@
+{{> _navbar }}
+
+{{! Form Products }}
+
+<div class="container" id="form">
+
+  <form class="row needs-validation form-login" novalidate method="post" action="/salvar/produtos">
+
+
+  <div class="row">
+
+          <div class="col-md-2">
+
+          {{! Preview image }}
+              <div class="fundo-img">
+                  <div id="image-preview"></div>
+              </div>
+
+          </div>
+
+  </div>
+
+    {{! image }}
+    <div class="row">
+
+      <div class="col-md-6 mb-3 me-3 mt-3">
+
+        <label for="image" class="form-label">Envie uma imagem do produto:</label>
+        <input type="file" class="form-control" id="image" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
+
+        <div class="invalid-feedback">
+          Informe o nome do produto!
+        </div>
+
+      </div>
+
+
+    </div>
+
+    {{! Name product }}
+    <div class="row">
+
+      <div class="col-md-12">
+
+        <label for="name" class="form-label">Nome do produto:</label>
+        <input type="text" class="form-control" id="name" name="name" required placeholder="Digite o nome do seu produto">
+
+        <div class="invalid-feedback">
+          Informe o nome do produto!
+        </div>
+
+      </div>
+    </div>
+
+    {{! Category }}
+    <div class="row mt-3">
+
+          <div class="col-md-12">
+
+                    <label class="form-label" for="category">Categoria:</label>
+                    <select name="category" id="category" class="form-select" aria-label="Default select exemple" required>
+
+                              <option selected disabled value="" >Selecione uma categoria abaixo:</option>
+
+                              <option value="Smartphones e Acessórios">Smartphones e Acessórios</option>
+
+                              <option value="Computadores e Acessórios">Computadores e Acessórios</option>
+
+                              <option value="Áudio e Vídeo">Áudio e Vídeo</option>
+
+                              <option value="dispositivos vestíveis">Dispositivos vestíveis</option>
+
+                    </select>
+
+                    <div class="invalid-feedback">
+                              Selecione uma categoria!
+                    </div>
+
+
+          </div>
+
+    </div>
+
+    {{! Value }}
+    <div class="row mt-3">
+
+      <div class="col-md-6">
+
+        <label for="value" class="form-label">Valor do produto:</label>
+        <input type="text" class="form-control" id="value" name="value" required placeholder="R$ 0,00">
+
+        <div class="invalid-feedback">
+          Informe o valor do produto!
+        </div>
+
+      </div>
+
+{{! Amount }}
+      <div class="col-md-6">
+
+        <label for="amount" class="form-label">Quantidade:</label>
+        <input type="text" class="form-control" id="amount" name="value" required placeholder="00">
+
+        <div class="invalid-feedback">
+          Informe a quatidade do produto!
+        </div>
+
+      </div>
+
+    </div>
+
+
+    {{! Descriptio }}
+    <div class="row mt-2">
+
+      <div class="col-md-12">
+
+        <label for="description" class="col-form-label">Descrição:</label>
+        <textarea type="text" id="description" class="form-control" name="description"
+          placeholder="dscreva o produto" minlength="20" required></textarea>
+
+        <div class="invalid-feedback">
+          Adicione uma descrição do produto com no mínimo 20 caracteres!
+        </div>
+
+      </div>
+
+    </div>
+
+    {{! Botão para logar }}
+    <div class=" row col-md-5 mt-4">
+
+      <button class="btn btn-primary" type="submit">Adicionar produto</button>
+
+    </div>
+
+  </form>
+
+</div>

@@ -41,3 +41,41 @@ document.addEventListener('DOMContentLoaded', function() {
       verificarSessao();
   }
 });
+
+// Jquery mask
+$(document).ready( function() {
+// Money
+  $("input#value").maskMoney({
+    prefix: "R$ ",
+    thousands: ".",
+    decimal: ",",
+    allowZero: true
+});
+
+// Number
+$('input#amount').on('keypress', function(event) {
+  // Verifica se o caractere não é um número (0-9)
+  if (!/[\d]/.test(event.key)) {
+      event.preventDefault();
+  }
+});
+
+// Opcional: Verificação no evento input para prevenir colagem de letras
+$('input#amount').on('input', function() {
+  this.value = this.value.replace(/[^0-9]/g, '');
+});
+
+// Image preview
+$('input#image').on('change', function() {
+  const file = this.files[0];
+  if (file) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+          const img = $('<img class="preview">').attr('src', e.target.result);
+          $('div#image-preview').empty().append(img);
+      }
+      reader.readAsDataURL(file);
+  }
+});
+
+})

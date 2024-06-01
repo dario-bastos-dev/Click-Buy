@@ -23,7 +23,7 @@ const Products = db.define("products", {
                     type: Sequelize.STRING,
                     allowNul: false
           },
-          quantity: {
+          amount: {
                     type: Sequelize.STRING,
                     allowNul: false
           },
