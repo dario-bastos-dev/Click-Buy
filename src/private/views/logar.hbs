@@ -1,0 +1,85 @@
+{{! Alert erros }}
+{{#each error}}
+
+<div class="alert alert-danger container">
+  <p>{{texto}}</p>
+</div>
+
+{{/each}}
+
+{{!Formulário para criar conta}}
+<div class="container logar">
+
+  <form class="row needs-validation form-login" novalidate method="post" action="/salvar/usuario">
+
+    {{! Name }}
+    <div class="row">
+
+      <div class="col-md-6">
+
+        <label for="name" class="form-label">Nome:</label>
+        <input type="text" class="form-control" id="name" name="name" required placeholder="Digite seu nome"
+          minlength="3">
+
+        <div class="invalid-feedback">
+          Digite um nome válido!
+        </div>
+
+      </div>
+      {{! Lastname }}
+      <div class="col-md-6">
+
+        <label for="lastname" class="form-label">Sobrenome:</label>
+        <input type="text" class="form-control" id="lastname" name="lastname" required
+          placeholder="Digite seu sobrenome" minlength="3">
+
+        <div class="invalid-feedback">
+          Digite um sobrenome válido!
+        </div>
+
+      </div>
+
+    </div>
+
+    {{! E-mail }}
+    <div class="row">
+
+      <div class="col-md-12">
+
+        <label for="email" class="form-label">E-mail:</label>
+        <input type="text" class="form-control" id="email" name="email" required placeholder="Digite seu e-mail"
+          pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}">
+
+        <div class="invalid-feedback">
+          Digite um e-mail válido!
+        </div>
+
+      </div>
+    </div>
+
+    {{! Senha }}
+    <div class="row mt-2">
+
+      <div class="col-md-12">
+
+        <label for="password" class="col-form-label">Senha:</label>
+        <input type="password" id="password" class="form-control" aria-describedby="passwordHelpInline" name="password"
+          placeholder="Informe sua senha " minlength="8" required>
+
+        <div class="invalid-feedback">
+          A senha deve ter no mínimo 8 caracteres!
+        </div>
+      </div>
+
+    </div>
+
+    {{! Botão para criar conta }}
+    <div class=" row col-md-5 mt-4 but">
+
+      <button class="btn btn-primary" type="submit">Criar conta</button>
+
+    </div>
+
+  </form>
+
+</div>

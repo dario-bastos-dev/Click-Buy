@@ -1,0 +1,54 @@
+{{! Formulário para fazer login }}
+
+{{! Background }}
+  <div class="bg-video">
+
+
+  </div>
+
+
+<div class="container login" id="login">
+
+  <form class="row needs-validation form-login" novalidate method="post" action="/login">
+
+    {{! E-mail }}
+    <div class="row">
+
+      <div class="col-md-12">
+
+        <label for="email" class="form-label">E-mail:</label>
+        <input type="text" class="form-control" id="email" name="email" required placeholder="Digite seu e-mail">
+
+        <div class="invalid-feedback">
+          Digite seu e-mail!
+        </div>
+
+      </div>
+    </div>
+
+    {{! Senha }}
+    <div class="row mt-2">
+
+      <div class="col-md-12">
+
+        <label for="password" class="col-form-label">Senha:</label>
+        <input type="password" id="password" class="form-control" aria-describedby="passwordHelpInline" name="password"
+          placeholder="Informe sua senha">
+      </div>
+
+      <div class="invalid-feedback">
+        Digite sua senha!
+      </div>
+
+    </div>
+
+    {{! Botão para logar }}
+    <div class=" row col-md-5 mt-4">
+
+      <button class="btn btn-primary" type="submit">Entrar</button>
+
+    </div>
+
+  </form>
+
+</div>

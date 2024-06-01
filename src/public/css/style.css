@@ -1,0 +1,24 @@
+/* Style página de login */
+
+/* Fundo */
+
+
+/* Formulário */
+.logar, .login {
+          height: 900px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+}
+
+.form-login {
+          justify-content: center;
+          
+}
+
+/* Alert */
+.alert {
+          position: absolute;
+          width: 100%;
+          top: 100px;
+}

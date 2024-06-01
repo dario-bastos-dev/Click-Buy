@@ -1,0 +1,5 @@
+# Ignorando dependências
+node_modules/
+
+# DataBase
+mysql/db.js

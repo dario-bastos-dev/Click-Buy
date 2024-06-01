@@ -1,0 +1,23 @@
+{
+  "name": "login_page",
+  "version": "1.0.0",
+  "description": "Página de login para clientes e adms",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "author": "Dário Bastos",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "connect-flash": "^0.1.1",
+    "express": "^4.19.2",
+    "express-fileupload": "^1.5.0",
+    "express-handlebars": "^7.1.2",
+    "express-session": "^1.18.0",
+    "mysql2": "^3.9.8",
+    "nodemon": "^3.1.1",
+    "sequelize": "^6.37.3",
+    "validator": "^13.12.0"
+  }
+}
