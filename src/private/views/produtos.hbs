@@ -81,13 +81,13 @@
 
     </div>
 
-    {{! Value }}
+    {{! Price }}
     <div class="row mt-3">
 
       <div class="col-md-6">
 
-        <label for="value" class="form-label">Valor do produto:</label>
-        <input type="text" class="form-control" id="value" name="value" required placeholder="R$ 0,00">
+        <label for="price" class="form-label">Valor do produto:</label>
+        <input type="text" class="form-control" id="price" name="price" required placeholder="R$ 0,00">
 
         <div class="invalid-feedback">
           Informe o valor do produto!
@@ -108,7 +108,8 @@
       </div>
 
     </div>
-
+    
+    <input type="hidden" name="seller" id="seller" value="{{id}}">
 
     {{! Descriptio }}
     <div class="row mt-2">

@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   // Espera pelo carregamento do elemento específico
-  const elementoEspecifico = document.getElementById('login');
+  const elementoEspecifico = document.getElementById('form');
 
   if (elementoEspecifico) {
       // Verifica a sessão quando o elemento está presente na página
@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function() {
 // Jquery mask
 $(document).ready( function() {
 // Money
-  $("input#value").maskMoney({
+  $("input#price").maskMoney({
     prefix: "R$ ",
     thousands: ".",
     decimal: ",",

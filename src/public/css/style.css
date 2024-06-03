@@ -97,6 +97,15 @@ li > a:hover {
           
 }
 
+.form-login a.criar-conta {
+          text-decoration: underline;
+          color: var(--Principal-2);
+}
+
+.form-login a.criar-conta:hover {
+          color: var(--Principal-1);
+}
+
 
 /* Alert */
 .alert {

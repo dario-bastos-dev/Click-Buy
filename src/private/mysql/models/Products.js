@@ -19,7 +19,7 @@ const Products = db.define("products", {
                     type: Sequelize.STRING,
                     allowNul: false
           },
-          value: {
+          price: {
                     type: Sequelize.STRING,
                     allowNul: false
           },
@@ -36,4 +36,14 @@ const Products = db.define("products", {
 Products.sync({force:false})
 .then(() => {})
 
-module.exports = Products;
+
+class ModelProducts {
+          constructor(body, image) {
+                    this.body = body,
+                    this.image = image,
+                    this.products,
+                    this.erros = []
+          };
+};
+
+module.exports = ModelProducts;

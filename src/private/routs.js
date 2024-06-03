@@ -2,6 +2,7 @@
 const routs = require("express").Router()
 const session = require("express-session")
 const ModelUsers = require("./mysql/models/Users")
+const ModelProducts = require("./mysql/models/Products")
 
 
 // Routs GET
@@ -17,9 +18,10 @@ routs.get("/logar", (req, res) => {
           res.render("logar")
 })
 
-routs.get("/perfil/produtos", (req, res) => {
+routs.get("/produtos", (req, res) => {})
 
-          res.render("produtos")
+routs.get("/produtos/cadastrar", (req, res) => {
+          res.render("produtos", {id: req.session.userId})
 })
 
 routs.get("/session", (req, res) => {
@@ -86,6 +88,8 @@ routs.post("/salvar/usuario", (req, res) => {
 
 });
 
-routs.post("/salvar/produto",(req, res) => {})
+routs.post("/salvar/produto",(req, res) => {
+          let prod = new ModelProducts(req.body, req.files.name)
+})
 
 module.exports = routs;
