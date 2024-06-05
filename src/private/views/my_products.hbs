@@ -1,0 +1,39 @@
+{{! Navbar }}
+{{> _navbar }}
+
+<div class="container" id="principal">
+
+          <main class="mb-4">
+
+                    <div id="titleBtn">
+                              <h1>Meus produtos:</h1>
+
+                              <a href="/produtos/cadastrar" class="btn mt-3">Adicionar produto</a>
+                    </div>
+
+                    <div id="produtos">
+
+                              {{#each products}}
+
+                              <div id="conteudo">
+
+                                        <img id="image" src="../img/products/{{dataValues.image}}"
+                                                  alt="Imagem do produto">
+
+                                        <div id="info">
+                                                  <h6 id="nome">{{dataValues.name}}</h6>
+                                                  <h6 id="categoria">{{dataValues.category}}</h6>
+                                                  <h6 id="valor">Valor: <span>{{dataValues.price}}</span></h6>
+                                                  <h6 id="quantidade">Estoque: <span>{{dataValues.amount}}</span> </h6>
+                                        </div>
+
+                              </div>
+
+                              {{/each}}
+
+                    </div>
+
+          </main>
+
+
+</div>

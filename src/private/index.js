@@ -7,6 +7,7 @@ const session = require("express-session")
 const flash = require("connect-flash")
 const bodyParser = require("body-parser")
 const fileUpload = require('express-fileupload')
+const path = require("path")
 
 //Config ---
 // Active file-upload
@@ -25,14 +26,6 @@ app.use(session({
         }))
 app.use(flash())
 
-// Middleware
-app.use((req, res, next) => {
-          res.locals.erro = req.flash("erro")
-          res.locals.success = req.flash("success")
-
-          next()
-})
-
 // Database MySQL
 db.authenticate()
 .then(() => {
@@ -48,7 +41,32 @@ app.set("view engine", ".hbs")
 app.set("views", "./views")
 
 // Static archive
-app.use(express.static("../public"))
+app.use(express.static(path.join(__dirname, "../public")))
+
+
+// Middlewares ---
+// Conect Flas
+app.use((req, res, next) => {
+  res.locals.erro = req.flash("erro")
+  res.locals.success = req.flash("success")
+
+  next()
+})
+
+// Validar session
+app.use((req, res, next) => {
+  
+if(req.path === "/logar" || req.path === "/" || req.path === "/login" || req.path === "/salvar/usuario") return next();
+
+else {
+
+if(req.session.userId) return next();
+
+else res.redirect("/")
+
+}
+
+})
 
 // Routs archive
 app.use("/", require("./routs"))

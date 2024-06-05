@@ -2,9 +2,9 @@
 
 {{! Form Products }}
 
-<div class="container" id="form">
+<div class="container" id="form-2">
 
-  <form class="row needs-validation form-login" novalidate method="post" action="/salvar/produtos">
+  <form class="row needs-validation form-login" novalidate method="post" action="/salvar/produto" encType="multipart/form-data">
 
 
   <div class="row">
@@ -26,10 +26,10 @@
       <div class="col-md-6 mb-3 me-3 mt-3">
 
         <label for="image" class="form-label">Envie uma imagem do produto:</label>
-        <input type="file" class="form-control" id="image" aria-describedby="inputGroupFileAddon04" aria-label="Upload">
+        <input type="file" class="form-control" id="image" aria-describedby="inputGroupFileAddon04" aria-label="Upload" required name="image" >
 
         <div class="invalid-feedback">
-          Informe o nome do produto!
+          Adicione uma imagem do produto!
         </div>
 
       </div>
@@ -99,7 +99,7 @@
       <div class="col-md-6">
 
         <label for="amount" class="form-label">Quantidade:</label>
-        <input type="text" class="form-control" id="amount" name="value" required placeholder="00">
+        <input type="text" class="form-control" id="amount" name="amount" required placeholder="00">
 
         <div class="invalid-feedback">
           Informe a quatidade do produto!
@@ -109,7 +109,8 @@
 
     </div>
     
-    <input type="hidden" name="seller" id="seller" value="{{id}}">
+    {{! Vendedor }}
+    <input type="hidden" name="seller" id="seller" value="1">
 
     {{! Descriptio }}
     <div class="row mt-2">
@@ -128,7 +129,7 @@
 
     </div>
 
-    {{! Botão para logar }}
+    {{! Botão para adicionar produto }}
     <div class=" row col-md-5 mt-4">
 
       <button class="btn btn-primary" type="submit">Adicionar produto</button>

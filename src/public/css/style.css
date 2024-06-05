@@ -70,7 +70,7 @@ li > a:hover {
 /* Formulário */
 
 /* Login, Logar */
-#form {
+#form, #form-2 {
           height: calc(100vh - 100px);
           display: flex;
           justify-content: center;
@@ -87,12 +87,13 @@ li > a:hover {
           text-transform: uppercase;
           font-weight: bold;
           padding: 10px 0;
+          color: var(--Texto-1);
           
 }
 
 .form-login button:hover {
           background-color: var(--Texto-1);
-          border: 2px solid --Principal-1;
+          border: 2px solid var(--Principal-1);
           color: var(--Principal-1);
           
 }
@@ -112,4 +113,74 @@ li > a:hover {
           position: absolute;
           width: 100%;
           top: 100px;
+}
+
+/* Meus produtos */
+div#titleBtn {
+          position: fixed;
+          margin-top: -180px !important;
+          padding: 0 0 20px 0;
+          border-bottom: 5px solid var(--Principal-1);
+          width: 1296px;
+          background-color: var(--Texto-1);
+          display: flex;
+          justify-content: space-between;
+}
+
+div#produtos {
+          margin: 290px 0 0 0 !important;
+}
+
+div#conteudo {
+          display: flex;
+          padding: 20px;
+          background-color: #fcfcfc;
+          border-radius: 14px;
+          border: 3px solid #f0f0f0;
+          margin-bottom: 20px;
+}
+
+div#conteudo>img {
+          border-radius: 8px;
+          border: 3px solid var(--Principal-1);
+          width: 200px;
+}
+
+div#conteudo>div#info {
+          margin: auto 30px;
+}
+
+div#conteudo>div#info>h6 {
+          font-size: 20px;
+          font-weight: bold;
+}
+
+div#conteudo>div#info>h6#nome {
+          margin: 0 0 40px 0;
+          font-size: 24px;
+          color: var(--Principal-1);
+}
+div#conteudo>div#info>h6#categoria {
+          margin: 0 0 30px 0;
+}
+
+div#titleBtn>a {
+          background-color: var(--Principal-1);
+          text-transform: uppercase;
+          font-weight: bold;
+          padding: 15px 20px;
+          color: var(--Texto-1);
+          
+}
+
+div#titleBtn>a:hover {
+          background-color: var(--Texto-1);
+          border: 2px solid var(--Principal-1);
+          color: var(--Principal-1);
+          
+}
+
+div#titleBtn h1 {
+          font-weight: bold;
+          color: var(--Principal-1);
 }

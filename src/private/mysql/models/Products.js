@@ -34,16 +34,49 @@ const Products = db.define("products", {
 })
 
 Products.sync({force:false})
-.then(() => {})
+.then(() => {console.log("Tabela de produtos conectada")})
 
 
 class ModelProducts {
           constructor(body, image) {
                     this.body = body,
                     this.image = image,
-                    this.products,
+                    this.product,
                     this.erros = []
           };
+
+          async AddProduct() {
+                    try {
+                              let date = new Date().getTime()
+
+                    this.product = await Products.create({
+                              image: `${date}_${this.body.seller}_${this.image}`,
+                              name: this.body.name,
+                              description: this.body.description,
+                              category: this.body.category,
+                              price: this.body.price,
+                              amount: this.body.amount,
+                              seller: this.body.seller
+                    })
+
+                    if(this.product) return true;
+
+          } catch(e) {
+                    throw new Error(e);
+           }
+
+          };
+
+          async getProducts(session) {
+
+                    this.product = await Products.findAll(
+                              {where: {seller: session}}
+                    )
+
+                    if(this.product) return true;
+
+          }
+
 };
 
 module.exports = ModelProducts;
