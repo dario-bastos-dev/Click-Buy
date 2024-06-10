@@ -1,3 +1,6 @@
+const { METHODS } = require("http");
+const { url } = require("inspector");
+
 // Function validate form camps
 const forms = document.querySelectorAll('.needs-validation')
 
@@ -14,35 +17,25 @@ Array.from(forms).forEach(form => {
 
         });
 
-// Check session
-document.addEventListener('DOMContentLoaded', function() {
-  // Função para verificar a sessão
-  function verificarSessao() {
-      fetch('/session', {
-          method: 'GET',
-          credentials: 'include'
-      })
-      .then(response => response.json())
-      .then(data => {
-          if (data.isLoggedIn) {
-              window.location.href = '/Inicio'; // Redireciona para a página inicial
-          }
-      })
-      .catch(error => {
-          console.error('Erro ao verificar a sessão:', error);
-      });
-  }
+// Jquery
 
-  // Espera pelo carregamento do elemento específico
-  const elementoEspecifico = document.getElementById('form');
+function logout() {
+  $.ajax({
+    url: '/logout',
+    method: 'POST',
+    xhrFields: {
+        withCredentials: true // Importante para enviar cookies
+    },
+    success: function(response) {
+        window.location.href = '/';
+    },
+    error: function(error) {
+        alert('Erro ao deslogar');
+        console.error('Erro ao deslogar:', error);
+    }
+})
+}
 
-  if (elementoEspecifico) {
-      // Verifica a sessão quando o elemento está presente na página
-      verificarSessao();
-  }
-});
-
-// Jquery mask
 $(document).ready( function() {
 // Money
   $("input#price").maskMoney({

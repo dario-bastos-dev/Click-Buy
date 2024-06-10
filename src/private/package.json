@@ -1,7 +1,7 @@
 {
-  "name": "login_page",
+  "name": "click_buy",
   "version": "1.0.0",
-  "description": "Página de login para clientes e adms",
+  "description": "Site de comércio eletrônico",
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js"

@@ -67,7 +67,8 @@ class ModelProducts {
 
           };
 
-          async getProducts(session) {
+          async myProducts(session) {
+                    try {
 
                     this.product = await Products.findAll(
                               {where: {seller: session}}
@@ -75,6 +76,35 @@ class ModelProducts {
 
                     if(this.product) return true;
 
+          } catch(e) {
+                    throw new Error(e)
+          }
+
+          };
+
+          async allProducts() {
+                    try {
+
+                    this.product = await Products.findAll({order:[["id", "DESC"]]})
+
+          } catch(e) {
+                    throw new Error(e)
+          }
+
+          };
+
+          async searchProduct(search) {
+                    try {
+                              this.product = await Products.findAll({
+                                        where: {[Sequelize.Op.or]: [
+                                                  {name: {[Sequelize.Op.like]: search}},
+                                                  {category: {[Sequelize.Op.like]: search}}
+                                        ]},
+                                        order: [["id", "DESC"]]
+                              })
+                    } catch(e) {
+                              throw new Error(e)
+                    }
           }
 
 };

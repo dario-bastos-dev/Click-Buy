@@ -1,3 +1,51 @@
 {{> _navbar }}
 
-<h1>{{session}} Está logado!</h1>
+<div class="container" id="home">
+
+          <form action="/inicio" method="get">
+
+                    <div class="input-group mb-3">
+
+                              <input type="text" class="form-control" placeholder="Digite o nome do produto"
+                                        aria-label="Digite o nome do produto" aria-describedby="button-addon2" id="pesquisa" name="search">
+
+                              <button class="btn" type="submit" id="btn-search">
+                                        <ion-icon name="search-outline"></ion-icon>
+                              </button>
+
+                    </div>
+
+          </form>
+
+          {{! Exibindo produtos }}
+                    <div id="produtos2">
+
+                              {{#each products}}
+
+                              <div id="conteudo" class="mb-3">
+
+                                        <img id="image" src="../img/products/{{dataValues.image}}"
+                                                  alt="Imagem do produto">
+
+                                        <div id="info">
+                                                  <h6 id="nome">{{dataValues.name}}</h6>
+                                                  <h6 id="categoria">{{dataValues.category}}</h6>
+                                                  <h6 id="valor">Valor: <span>{{dataValues.price}}</span></h6>
+                                                  <h6 id="quantidade">Estoque: <span>{{dataValues.amount}}</span> </h6>
+                                        </div>
+
+                                        <div id="btn">
+                                                            <a href="" class="btn me-2"> <ion-icon name="add-outline"></ion-icon> </a>
+
+                                                            <a href="" class="btn"> Ver mais </a>
+
+                                        
+                                        </div>
+
+                              </div>
+
+                              {{/each}}
+
+                    </div>
+
+</div>

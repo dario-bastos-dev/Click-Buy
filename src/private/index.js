@@ -8,6 +8,7 @@ const flash = require("connect-flash")
 const bodyParser = require("body-parser")
 const fileUpload = require('express-fileupload')
 const path = require("path")
+const ModelUsers = require("./mysql/models/Users")
 
 //Config ---
 // Active file-upload
@@ -22,7 +23,8 @@ app.use(session({
           secret: 'jk1234uh25@gsafkjg%3ASDF',
           resave: false,
           saveUninitialized: false,
-          cookie: { secure: false, maxAge: 1000*60*60*24*7 }
+          cookie: { secure: false, maxAge: 1000*60*60*24*7 },
+          name: "sessionId"
         }))
 app.use(flash())
 
@@ -55,12 +57,19 @@ app.use((req, res, next) => {
 
 // Validar session
 app.use((req, res, next) => {
-  
-if(req.path === "/logar" || req.path === "/" || req.path === "/login" || req.path === "/salvar/usuario") return next();
+
+if(req.path === "/logar" || req.path === "/") {
+
+  if(req.session.userId) res.redirect("/inicio");
+
+  else return next()
+}
+
+else if( req.path === "/login" || req.path === "/salvar/usuario") return next()
 
 else {
 
-if(req.session.userId) return next();
+if(req.session.userId) return next()
 
 else res.redirect("/")
 

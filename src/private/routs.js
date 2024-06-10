@@ -11,7 +11,26 @@ routs.get("/", (req, res) => {
 })
 
 routs.get("/inicio", (req, res) => {
-          res.render("home", {session: req.session.userId})
+          let search = req.query.search
+          let query = '%'+search+'%'
+          let prod = new ModelProducts()
+          
+          if(!search) {
+                    prod.allProducts()
+                    .then(() => {
+                              res.render("home", {products: prod.product})
+                    
+                    })
+                    .catch(err => {
+                              throw new Error(err)
+                    })
+
+          } else {
+                    prod.searchProduct(query)
+                    .then(() => {
+                              res.render("home", {products: prod.product})
+                    })
+          }
 })
 
 routs.get("/logar", (req, res) => {
@@ -19,9 +38,9 @@ routs.get("/logar", (req, res) => {
 })
 
 routs.get("/produtos", (req, res) => {
-          let prod = new ModelProducts(req.body, null)
+          let prod = new ModelProducts()
 
-          prod.getProducts(1).then((val) => {
+          prod.myProducts(req.session.userId).then((val) => {
 
                     if(val) {
                               res.render("my_products", {products: prod.product})
@@ -36,25 +55,7 @@ routs.get("/produtos/cadastrar", (req, res) => {
           res.render("produtos", {id: req.session.userId})
 })
 
-routs.get("/session", (req, res) => {
-          let user = new ModelUsers(req.body);
-          // Veryfi secssion
-          if(req.session.userId) {
-                    user.Session(req.session.userId)
-                    .then((val) => {
-                              if(val) {
-                                        res.status(200).json({ isLoggedIn: true });
 
-                              } else {
-                                        req.flash("erro", "Usuário não existe!")
-                                        res.status(200).json({ isLoggedIn: false });
-                              }
-                    })
-                    .catch(() => {
-                              req.flash("erro", "Erro ao buscar usuário!")
-                    })
-          }
-})
 
 // Routs POST
 routs.post("/login", (req, res) => {
@@ -124,6 +125,20 @@ routs.post("/salvar/produto",(req, res) => {
                     req.flash("erro", "Erro ao cadastrar produto!")
                     res.redirect("/produtos")
 
+          })
+})
+
+routs.post("/logout", (req, res) => {
+          
+          req.session.destroy(err => {
+                    if(err) {
+                              return res.status(500).send('Não foi possível deslogar');
+
+                    } else {
+                    res.clearCookie("sessionId")
+
+                    res.status(200).send('Deslogado com sucesso');
+          }
           })
 })
 
