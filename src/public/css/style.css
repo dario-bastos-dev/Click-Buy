@@ -20,6 +20,19 @@ body {
           margin-top: 103px;   
 }
 
+/* Animações */
+/* Adicionar produto no carrinho */
+
+.fly-animation {
+    position: fixed;
+    z-index: 1000;
+    transition: transform 1s ease-in-out, opacity 1s ease-in-out;
+}
+
+.hidden {
+    display: none;
+}
+
 /* hover */
 /* Botões geral */
 .form-login button {
@@ -31,7 +44,7 @@ body {
           
 }
 
-.form-login button:hover, div#home form div button:hover, div#produtos2 div > a:hover {
+.form-login button:hover, div#home form div button:hover, div#produtos2 div > button:hover {
           background-color: var(--Texto-1);
           border: 2px solid var(--Principal-1);
           color: var(--Principal-1);
@@ -71,10 +84,10 @@ ul {
 }
 
 .dropdown-item > ion-icon {
-          margin: 0px 10px 3px 0;
+          margin: 0 10px 3px 0;
 }
 
-li > a > ion-icon {
+li > a > ion-icon, li > button > ion-icon {
           font-size: 25px;
 }
 
@@ -89,6 +102,15 @@ li > a {
 
 li > a:hover , li>button:hover {
           color: var(--Principal-2)!important;
+}
+
+li.carrinho >ion-icon {
+          position: absolute;
+          color: red;
+          border: none;
+          z-index: 1;
+          right: 155px;
+          bottom: 60px;
 }
 
 
@@ -131,13 +153,14 @@ li > a:hover , li>button:hover {
 /* Meus produtos */
 div#titleBtn {
           position: fixed;
-          margin-top: -188px !important;
+          top: 100px;
           padding: 30px 0 20px 0;
           border-bottom: 5px solid var(--Principal-1);
           width: 1296px;
           background-color: var(--Texto-1);
           display: flex;
           justify-content: space-between;
+          z-index: 1;
 }
 
 div#titleBtn > h1 {
@@ -145,11 +168,11 @@ div#titleBtn > h1 {
           font-weight: 700;
 }
 
-div#produtos {
-          margin: 290px 0 0 0 !important;
+div.produtos {
+          margin: 270px 0 0 0 !important;
 }
 
-div#conteudo {
+div.conteudo {
           display: flex;
           padding: 20px;
           background-color: #fcfcfc;
@@ -159,28 +182,28 @@ div#conteudo {
           width: 70%;
 }
 
-div#conteudo>img {
+div.conteudo>img {
           border-radius: 8px;
           border: 3px solid var(--Principal-1);
           width: 200px;
 }
 
-div#conteudo>div#info {
+div.conteudo>div#info {
           margin: auto 30px;
 }
 
-div#conteudo>div#info>h6 {
+div.conteudo>div#info>h6 {
           font-size: 20px;
           font-weight: bold;
 }
 
-div#conteudo>div#info>h6#nome {
+div.conteudo>div#info>h6.nome {
           margin: 0 0 40px 0;
           font-size: 24px;
           color: var(--Principal-2);
           font-family: Quicksand !important;
 }
-div#conteudo>div#info>h6#categoria {
+div.conteudo>div#info>h6.categoria {
           margin: 0 0 30px 0;
 }
 
@@ -210,20 +233,20 @@ div#produtos div a>ion-icon {
           font-weight: bold;
 }
 
-div#produtos div {
+div.produtos div {
           margin: auto;
 }
 
-/* Produtos inicio */
+/* Inicio */
 div#produtos2 {
           margin: 160px 0 0 0 !important;
 }
 
-div#produtos2 div a {
+div#produtos2 div button {
           color: var(--Texto-1);
 }
 
-div#produtos2 div a> ion-icon {
+div#produtos2 div button> ion-icon {
           font-size: 20px;
 }
 
@@ -231,7 +254,7 @@ div#produtos2 div#btn {
           margin: auto;
 }
 
-div#produtos2 div a {
+div#produtos2 div button {
           background-color: var(--Principal-1);
           color: var(--Texto-1);
 }

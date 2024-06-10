@@ -22,22 +22,22 @@
 
                               {{#each products}}
 
-                              <div id="conteudo" class="mb-3">
+                              <div class="mb-3 conteudo">
 
-                                        <img id="image" src="../img/products/{{dataValues.image}}"
+                                        <img class="image" src="../img/products/{{dataValues.image}}"
                                                   alt="Imagem do produto">
 
                                         <div id="info">
-                                                  <h6 id="nome">{{dataValues.name}}</h6>
-                                                  <h6 id="categoria">{{dataValues.category}}</h6>
-                                                  <h6 id="valor">Valor: <span>{{dataValues.price}}</span></h6>
-                                                  <h6 id="quantidade">Estoque: <span>{{dataValues.amount}}</span> </h6>
+                                                  <h6 class="nome">{{dataValues.name}}</h6>
+                                                  <h6 class="categoria">{{dataValues.category}}</h6>
+                                                  <h6 class="valor">Valor: <span>{{dataValues.price}}</span></h6>
+                                                  <h6 class="quantidade">Estoque: <span>{{dataValues.amount}}</span> </h6>
                                         </div>
 
                                         <div id="btn">
-                                                            <a href="" class="btn me-2"> <ion-icon name="add-outline"></ion-icon> </a>
+                                                            <button data-id="{{dataValues.id}}" data-quant="1" class="btn me-2 add-cart"> <ion-icon name="add-outline"></ion-icon> </button>
 
-                                                            <a href="" class="btn"> Ver mais </a>
+                                                            <button  class="btn"> <a href="/produto/{{dataValues.id}}"> Ver mais </a> </button>
 
                                         
                                         </div>

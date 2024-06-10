@@ -82,6 +82,18 @@ class ModelProducts {
 
           };
 
+          async Product(productId) {
+                    try {
+                              this.product = await Products.findByPk(productId)
+
+                              if(this.product) return true;
+                              else return false;
+
+                    } catch(e){
+                              throw new Error(e)
+                    }
+          }
+
           async allProducts() {
                     try {
 

@@ -18,7 +18,7 @@ routs.get("/inicio", (req, res) => {
           if(!search) {
                     prod.allProducts()
                     .then(() => {
-                              res.render("home", {products: prod.product})
+                              res.render("home", {products: prod.product, cart: req.session.cart})
                     
                     })
                     .catch(err => {
@@ -28,7 +28,7 @@ routs.get("/inicio", (req, res) => {
           } else {
                     prod.searchProduct(query)
                     .then(() => {
-                              res.render("home", {products: prod.product})
+                              res.render("home", {products: prod.product, cart: req.session.cart})
                     })
           }
 })
@@ -43,7 +43,7 @@ routs.get("/produtos", (req, res) => {
           prod.myProducts(req.session.userId).then((val) => {
 
                     if(val) {
-                              res.render("my_products", {products: prod.product})
+                              res.render("my_products", {products: prod.product, cart: req.session.cart})
 
                     } else {
                               res.render("my_products")
@@ -55,7 +55,23 @@ routs.get("/produtos/cadastrar", (req, res) => {
           res.render("produtos", {id: req.session.userId})
 })
 
+routs.get("/produto/:id", (req, res) => {
+          let id = req.query.id;
 
+          let prod = new ModelProducts()
+
+          prod.Product(id)
+          .then(val => {
+                    if(val) res.render("view_produto", {product: prod.product, cart: req.session.cart});
+
+                    else res.redirect("/inicio")
+
+          })
+          .catch(err => {
+                    req.flash("erro", "Erro ao buscar produto!"+err)
+                    res.redirect("/")
+          })
+})
 
 // Routs POST
 routs.post("/login", (req, res) => {
@@ -140,6 +156,21 @@ routs.post("/logout", (req, res) => {
                     res.status(200).send('Deslogado com sucesso');
           }
           })
+})
+
+routs.post("/add-carrinho", (req, res) => {
+          let id = req.body.id;
+          let quant = req.body.quant;
+          let cart = req.session.cart;
+
+          const existingProdut = cart.findIndex(item => {item.id === id})
+
+          if(existingProdut > -1) cart[existingProdut].quant += quant;
+          else cart.push({id, quant});
+
+          req.session.cart = cart
+
+          res.status(200).json({ message: 'Produto adicionado ao carrinho', cart });
 })
 
 module.exports = routs;

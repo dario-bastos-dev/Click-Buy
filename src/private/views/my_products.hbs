@@ -10,21 +10,22 @@
 
                               <a href="/produtos/cadastrar" class="btn mt-3">Adicionar produto</a>
                     </div>
+                    
                     {{! Exibindo produtos }}
-                    <div id="produtos">
+                    <div class="produtos">
 
                               {{#each products}}
 
-                              <div id="conteudo" class="mb-3">
+                              <div class="mb-3 conteudo">
 
-                                        <img id="image" src="../img/products/{{dataValues.image}}"
+                                        <img class="image" src="../img/products/{{dataValues.image}}"
                                                   alt="Imagem do produto">
 
                                         <div id="info">
-                                                  <h6 id="nome">{{dataValues.name}}</h6>
-                                                  <h6 id="categoria">{{dataValues.category}}</h6>
-                                                  <h6 id="valor">Valor: <span>{{dataValues.price}}</span></h6>
-                                                  <h6 id="quantidade">Estoque: <span>{{dataValues.amount}}</span> </h6>
+                                                  <h6 class="nome">{{dataValues.name}}</h6>
+                                                  <h6 class="categoria">{{dataValues.category}}</h6>
+                                                  <h6 class="valor">Valor: <span>{{dataValues.price}}</span></h6>
+                                                  <h6 class="quantidade">Estoque: <span>{{dataValues.amount}}</span> </h6>
                                         </div>
 
                                         <div>

@@ -1,6 +1,3 @@
-const { METHODS } = require("http");
-const { url } = require("inspector");
-
 // Function validate form camps
 const forms = document.querySelectorAll('.needs-validation')
 
@@ -71,4 +68,38 @@ $('input#image').on('change', function() {
   }
 });
 
+
 })
+
+// JavaScript prórpio
+
+// Adicoinar no carrinho --
+document.addEventListener('DOMContentLoaded', function() {
+  const addToCartButtons = document.querySelectorAll('.add-cart');
+
+  addToCartButtons.forEach(button => {
+      button.addEventListener('click', function() {
+          const id = button.getAttribute('data-id');
+          const quant = button.getAttribute('data-quant');
+
+          console.log('ID:', id); // Para debug
+          console.log('Quant:', quant); // Para debug
+
+          const xhr = new XMLHttpRequest();
+          xhr.open('POST', '/add-carrinho');
+          xhr.setRequestHeader('Content-Type', 'application/json');
+          xhr.onload = function() {
+              if (xhr.status === 200) {
+                  const response = JSON.parse(xhr.responseText);
+                  console.log(response.cart);
+              } else {
+                  console.log("Ocorreu um erro")
+              }
+          };
+          xhr.onerror = function() {
+              alert('Erro ao adicionar produto ao carrinho.');
+          };
+          xhr.send(JSON.stringify({ id: id, quant: quant }));
+      });
+  });
+});
