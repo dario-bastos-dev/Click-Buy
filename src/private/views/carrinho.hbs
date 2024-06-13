@@ -1,28 +1,35 @@
+{{! Navbar }}
 {{> _navbar }}
 
-<main id="prod-unic">
-          <div class="container unic">
+<div class="container" id="principal">
+
+          <main>
+
+                    <div id="titleBtn">
+                              <h1>Meus carrinho:</h1>
+                    </div>
                     
-                    <div class="row princ">
+                    {{! Exibindo produtos }}
+                    <div class="produtos">
 
+                              {{#each products}}
 
-                              <div class="imagen col-md-6">
-                                        <img class="image-2" src="../img/products/{{product.dataValues.image}}"
+                              <div class="mb-3 conteudo">
+
+                                        <div class="img">
+
+                                                  <img class="image" src="../img/products/{{image}}"
                                                   alt="Imagem do produto">
-                              </div>
+                                        </div>
+                                        
+                                        <div id="info">
+                                                  <h6 class="nome">{{name}}</h6>
+                                                  <h6 class="valor">Valor:R$ <span>{{price}}</span></h6>
+                                                  <h6 class="quantidade">Quantidade: <span>{{quant}}</span> </h6>
+                                        </div>
 
-                              <div class="informacoes col-md-6">
-
-                                        <div class="row">
-                                                  <div class="col-md-12">
-                                                            <h1>{{product.dataValues.name}}</h1>
-                                                            <p>{{product.dataValues.description}}</p>
-                                                            <h4>R$ {{product.dataValues.price}}</h4>
-                                                  </div>
-
-                                                  <div class="col-md-12 mt-2">
-
-                                                            <form action="/add-carrinho" method="post">
+                                        <div>
+                                                  <form action="/rm-carrinho" method="post">
                                                                       
                                                                       <div class="input-group" id="quant">
 
@@ -41,20 +48,23 @@
                                                                                                     type="button">+</button>
                                                                                 </div>
 
-                                                                                <input type="hidden" name="id" value="{{product.dataValues.id}}">
-                                                                                <input type="hidden" name="origin" value="form">
+                                                                                <input type="hidden" name="id" value="{{id}}">
 
-                                                                                <div class="mt-3 butt">
-                                                                                          <button type="submit" class="btn btn-compra" >Adicionar ao carrinho</button>
+                                                                                <div class="mt-3">
+                                                                                          <button type="submit" class="btn btn-compra" >Remover</button>
                                                                                 </div>
                                                                       </div>
 
                                                             </form>
-                                                  </div>
                                         </div>
 
                               </div>
 
+                              {{/each}}
+
                     </div>
-          </div>
-</main>
+
+          </main>
+
+
+</div>

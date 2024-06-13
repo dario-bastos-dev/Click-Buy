@@ -1,176 +1,245 @@
 // Components
-const routs = require("express").Router()
-const session = require("express-session")
-const ModelUsers = require("./mysql/models/Users")
-const ModelProducts = require("./mysql/models/Products")
-
+const routs = require("express").Router();
+const ModelUsers = require("./mysql/models/Users");
+const ModelProducts = require("./mysql/models/Products");
 
 // Routs GET
 routs.get("/", (req, res) => {
-          res.render("login")
-})
+  res.render("login");
+});
 
 routs.get("/inicio", (req, res) => {
-          let search = req.query.search
-          let query = '%'+search+'%'
-          let prod = new ModelProducts()
-          
-          if(!search) {
-                    prod.allProducts()
-                    .then(() => {
-                              res.render("home", {products: prod.product, cart: req.session.cart})
-                    
-                    })
-                    .catch(err => {
-                              throw new Error(err)
-                    })
+  let search = req.query.search;
+  let query = "%" + search + "%";
+  let prod = new ModelProducts();
 
-          } else {
-                    prod.searchProduct(query)
-                    .then(() => {
-                              res.render("home", {products: prod.product, cart: req.session.cart})
-                    })
-          }
-})
+  if (!search) {
+    prod
+      .allProducts()
+      .then(() => {
+        res.render("home", { products: prod.product, cart: req.session.cart });
+      })
+      .catch((err) => {
+        throw new Error(err);
+      });
+  } else {
+    prod.searchProduct(query).then(() => {
+      res.render("home", { products: prod.product, cart: req.session.cart });
+    });
+  }
+});
 
 routs.get("/logar", (req, res) => {
-          res.render("logar")
-})
+  res.render("logar");
+});
 
 routs.get("/produtos", (req, res) => {
-          let prod = new ModelProducts()
+  let prod = new ModelProducts();
 
-          prod.myProducts(req.session.userId).then((val) => {
-
-                    if(val) {
-                              res.render("my_products", {products: prod.product, cart: req.session.cart})
-
-                    } else {
-                              res.render("my_products")
-                    }
-          })
-})
+  prod.myProducts(req.session.userId).then((val) => {
+    if (val) {
+      res.render("my_products", {
+        products: prod.product,
+        cart: req.session.cart,
+      });
+    } else {
+      res.render("my_products");
+    }
+  });
+});
 
 routs.get("/produtos/cadastrar", (req, res) => {
-          res.render("produtos", {id: req.session.userId})
-})
+  res.render("produtos", { id: req.session.userId });
+});
 
 routs.get("/produto/:id", (req, res) => {
-          let id = req.query.id;
+  let id = req.params.id;
 
-          let prod = new ModelProducts()
+  let prod = new ModelProducts();
 
-          prod.Product(id)
-          .then(val => {
-                    if(val) res.render("view_produto", {product: prod.product, cart: req.session.cart});
+  prod
+    .Product(id)
+    .then((val) => {
+      if (val)
+        res.render("view_produto", {
+          product: prod.product,
+          cart: req.session.cart,
+        });
+      else res.redirect("/inicio");
+    })
+    .catch((err) => {
+      req.flash("erro", "Erro ao buscar produto!" + err);
+      res.redirect("/");
+    });
+});
 
-                    else res.redirect("/inicio")
+routs.get("/carrinho", (req, res) => {
 
-          })
-          .catch(err => {
-                    req.flash("erro", "Erro ao buscar produto!"+err)
-                    res.redirect("/")
-          })
-})
+    let cart = req.session.cart;
+    let prod = new ModelProducts();
 
-// Routs POST
-routs.post("/login", (req, res) => {
+    if (!cart) res.render("carrinho");
 
-          let user = new ModelUsers(req.body);
+    else {
+      const cartItens = cart.map(async (item) => {
 
-                    user.Login()
-                    .then((val) => {
+       await prod.Product(item.id);
 
-                              if(val) {
-                                        req.session.userId = user.user.id;
-                                        res.redirect("/inicio")
-                              } else {
-                                        req.flash("erro", `${user.erros}`)
-                                        res.redirect("/")
-                              }
-                    })
-                    .catch(() => {
-                              req.flash("erro", "Erro ao buscar usuário!")
-                              res.redirect("/")
-                    })
-})
+       let num1 = parseFloat(prod.product.price)
+       let num2 = parseFloat(item.quant)
+       let totalPrice = num1*num2
 
-routs.post("/salvar/usuario", (req, res) => {
+       return await {
+          ...item,
+          image: prod.product.image,
+          name: prod.product.name,
+          description: prod.product.description,
+          price: prod.product.price,
+          total: totalPrice.toString().replace(".", ".")
+       };
 
-          let user = new ModelUsers(req.body);
+      })
 
-          user.CreateUser().then((val) => {
+      Promise.all(cartItens)
+      .then(result => res.render("carrinho", {products: result}) )
 
-                    if(val) {
-                              req.flash("success", "Usuário criado com sucesso!")
-                              res.redirect("/")
+      
 
-                    } else {
-                              req.flash("erro", `${user.erros}`)
-                              res.redirect("/logar")
-                    };
-          }).catch(() => {
-
-                    req.flash("erro", "Erro ao criar usuário!")
-                    res.redirect("/logar")
-
-          })
+    }
 
 });
 
-routs.post("/salvar/produto",(req, res) => {
+// Routs POST
+routs.post("/login", (req, res) => {
+  let user = new ModelUsers(req.body);
 
-          let prod = new ModelProducts(req.body, req.files.image.name)
+  user
+    .Login()
+    .then((val) => {
+      if (val) {
+        req.session.userId = user.user.id;
+        res.redirect("/inicio");
+      } else {
+        req.flash("erro", `${user.erros}`);
+        res.redirect("/");
+      }
+    })
+    .catch((err) => {
+      console.log(err)
+      req.flash("erro", "Erro ao buscar usuário!");
+      res.redirect("/");
+    });
+});
 
-          let date = new Date().getTime()
+routs.post("/salvar/usuario", (req, res) => {
+  let user = new ModelUsers(req.body);
 
-          prod.AddProduct().then((val) => {
-                    if(val) {
-                              req.files.image.mv("../public/img/products/" + `${date}_${prod.body.seller}_${req.files.image.name}`)
+  user
+    .CreateUser()
+    .then((val) => {
+      if (val) {
+        req.flash("success", "Usuário criado com sucesso!");
+        res.redirect("/");
+      } else {
+        req.flash("erro", `${user.erros}`);
+        res.redirect("/logar");
+      }
+    })
+    .catch((err) => {
+      console.log(err)
+      req.flash("erro", "Erro ao criar usuário!");
+      res.redirect("/logar");
+    });
+});
 
-                              req.flash("success", "Produto adicionado com sucesso!")
-                              res.redirect("/produtos")
+routs.post("/salvar/produto", (req, res) => {
+  let prod = new ModelProducts(req.body, req.files.image.name);
 
-                    } else {
-                              req.flash("erro", `Não foi possível adicionar o produto`)
-                              res.redirect("/produtos")
-                    }
+  let date = new Date().getTime();
 
-          }).catch(() => {
+  prod
+    .AddProduct()
+    .then((val) => {
+      if (val) {
+        req.files.image.mv(
+          "../public/img/products/" +
+            `${date}_${prod.body.seller}_${req.files.image.name}`
+        );
 
-                    req.flash("erro", "Erro ao cadastrar produto!")
-                    res.redirect("/produtos")
-
-          })
-})
+        req.flash("success", "Produto adicionado com sucesso!");
+        res.redirect("/produtos");
+      } else {
+        req.flash("erro", `Não foi possível adicionar o produto`);
+        res.redirect("/produtos");
+      }
+    })
+    .catch(() => {
+      req.flash("erro", "Erro ao cadastrar produto!");
+      res.redirect("/produtos");
+    });
+});
 
 routs.post("/logout", (req, res) => {
-          
-          req.session.destroy(err => {
-                    if(err) {
-                              return res.status(500).send('Não foi possível deslogar');
+  req.session.destroy((err) => {
+    if (err) {
+      return res.status(500).send("Não foi possível deslogar");
+    } else {
+      res.clearCookie("sessionId");
 
-                    } else {
-                    res.clearCookie("sessionId")
-
-                    res.status(200).send('Deslogado com sucesso');
-          }
-          })
-})
+      res.status(200).send("Deslogado com sucesso");
+    }
+  });
+});
 
 routs.post("/add-carrinho", (req, res) => {
-          let id = req.body.id;
-          let quant = req.body.quant;
-          let cart = req.session.cart;
+  let origin = req.body.origin;
+  let id = req.body.id;
+  let quant = req.body.quant;
+  let cart = req.session.cart;
 
-          const existingProdut = cart.findIndex(item => {item.id === id})
+  let verifyProdut = cart.findIndex((item) => {
+    return item.id === id;
 
-          if(existingProdut > -1) cart[existingProdut].quant += quant;
-          else cart.push({id, quant});
+  });
 
-          req.session.cart = cart
+  if (verifyProdut > -1) {
+          let num1 = parseInt(cart[verifyProdut].quant)
+          let num2 = parseInt(quant)
+          let quantTotal = num1+num2
+          cart[verifyProdut].quant = quantTotal.toString()
 
-          res.status(200).json({ message: 'Produto adicionado ao carrinho', cart });
+  }
+  else cart.push({ id, quant });
+
+  req.session.cart = cart;
+
+  if (origin == "form") res.redirect(`/produto/${id}`);
+  else res.sendStatus(200);
+});
+
+routs.post("/rm-carrinho", (req, res) => {
+
+  let id = req.body.id;
+  let quant = req.body.quant;
+  let cart = req.session.cart;
+
+  let verifyProdut = cart.findIndex((item) => {
+    return item.id === id;
+  });
+
+  if (verifyProdut > -1) {
+
+          let num1 = parseInt(cart[verifyProdut].quant)
+          let num2 = parseInt(quant)
+          let quantTotal = num1-num2
+          cart[verifyProdut].quant = quantTotal.toString()
+
+          if(cart[verifyProdut].quant == 0) cart.pop({ id, quant });
+  }
+
+  req.session.cart = cart;
+
+  res.redirect(`/carrinho`);
 })
 
 module.exports = routs;

@@ -35,9 +35,9 @@ function logout() {
 
 $(document).ready( function() {
 // Money
-  $("input#price").maskMoney({
+  $("#price").maskMoney({
     prefix: "R$ ",
-    thousands: ".",
+    thousands: "",
     decimal: ",",
     allowZero: true
 });
@@ -68,6 +68,29 @@ $('input#image').on('change', function() {
   }
 });
 
+// Incremento e decremento do produto
+$('.btn-increment').click(function() {
+  var $input = $(this).closest('.input-group').find('.quantity-input');
+  var val = parseInt($input.val());
+  if (!isNaN(val)) {
+      $input.val(val + 1);
+  }
+});
+
+$('.btn-decrement').click(function() {
+  var $input = $(this).closest('.input-group').find('.quantity-input');
+  var val = parseInt($input.val());
+  if (!isNaN(val) && val > 1) {
+      $input.val(val - 1);
+  }
+});
+
+$('.quantity-input').on('input', function() {
+  var val = $(this).val();
+  if (!/^\d*$/.test(val)) {
+      $(this).val(val.replace(/[^\d]/g, ''));
+  }
+});
 
 })
 
@@ -89,17 +112,15 @@ document.addEventListener('DOMContentLoaded', function() {
           xhr.open('POST', '/add-carrinho');
           xhr.setRequestHeader('Content-Type', 'application/json');
           xhr.onload = function() {
-              if (xhr.status === 200) {
-                  const response = JSON.parse(xhr.responseText);
-                  console.log(response.cart);
-              } else {
-                  console.log("Ocorreu um erro")
-              }
-          };
-          xhr.onerror = function() {
-              alert('Erro ao adicionar produto ao carrinho.');
-          };
-          xhr.send(JSON.stringify({ id: id, quant: quant }));
+            if (xhr.status === 200) {
+                // Redireciona a página após adicionar ao carrinho
+                window.location.reload();
+            } else {
+                alert('Erro ao adicionar produto ao carrinho.');
+            }
+          }
+
+          xhr.send(JSON.stringify({ id: id, quant: quant, origin: "inicio" }));
       });
   });
 });

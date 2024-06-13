@@ -1,6 +1,80 @@
 /*Smal*/
-@media(max-width: 767.8px) {
+@media(max-width: 991.8px) {
+          div#home form {
+                    left: 75px;
+          }
 
+          div.conteudo {
+                    display: block;
+          }
+
+          div.conteudo>div#info {
+                    margin:  20px auto;
+                    text-align: center;
+          }
+
+          div#produtos2 div#btn {
+                    display: flex;
+                    justify-content: center;
+                    margin-top: 20px;
+          }
+
+          div.conteudo>.img {
+                    margin: auto;
+          }
+
+          div#titleBtn{
+                    display: block;
+                    margin: auto;
+                    top: 53px;
+          }
+
+          div.produtos div div#btn-1 {
+                    display: flex;
+                    justify-content: center;
+                    margin-top: 20px;
+          }
+
+          #quant div button.btn-compra {
+                    width: 150px;
+          }
+
+          .unic {
+                   margin: 0 100px 0 0;
+          }
+
+          div.princ {
+                    margin: auto;
+          }
+
+          div .imagen img.image-2{
+                    width: 100%;
+          }
+
+          div .imagen {
+                    display: flex;
+                    justify-content: center;
+                    margin-bottom: 20px;
+          }
+
+          div.princ .informacoes div div {
+                    text-align: center;
+          }
+
+          div.princ .informacoes {
+                    padding: 20px;
+          }
+
+          div.princ .informacoes div div form {
+                    display: flex;
+                    justify-content: center;
+          }
+
+          li.carrinho >ion-icon {
+                    right: 45%;
+                    bottom: 40%;
+          }
+          
 }
 
 /*Medium*/
@@ -10,10 +84,14 @@
 
 /*Large*/
 @media (min-width: 992px) and (max-width: 1199.8px) {
-
+          
 }
 
 /*Extra large*/
 @media (min-width: 1200px) {
+          li.carrinho >ion-icon {
+                    right: 12.5%;
+                    bottom: 55%;
+          }
 
 }

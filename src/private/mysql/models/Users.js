@@ -1,5 +1,6 @@
 const Sequelize = require("sequelize")
 const db = require("../db")
+const bcrypt = require("bcryptjs")
 
 // Create table
 const Users = db.define("users", {
@@ -59,11 +60,14 @@ class ModelUsers {
                               await this.AuthCreate();
 
                               if(this.erros.length === 0){
+
+                                        let hashPassword = await bcrypt.hash(this.body.password, 10)
+
                                         this.user = await Users.create({
                                                   name: this.body.name,
                                                   lastname: this.body.lastname,
                                                   email: this.body.email,
-                                                  password: this.body.password
+                                                  password: hashPassword
                                         })
 
                                         return true
@@ -83,11 +87,10 @@ class ModelUsers {
                               });
 
                               if(this.user) {
-                                        if(this.user.password !== this.body.password) {
-                                                  this.erros.push("Senha incorreta!")
-                                                  return false
+                                        let validPassword = await bcrypt.compare(this.body.password, this.user.password)
 
-                                        } else return true;
+                                        if(validPassword) return true
+                                        
 
                               } else {
                                         this.erros.push("Usuário não cadastrado!")

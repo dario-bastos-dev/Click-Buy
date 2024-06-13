@@ -49,12 +49,15 @@ class ModelProducts {
                     try {
                               let date = new Date().getTime()
 
+                              let format1 = this.body.price.replace("R$", '').trim()
+                              let price = format1.replace(",", ".")
+
                     this.product = await Products.create({
                               image: `${date}_${this.body.seller}_${this.image}`,
                               name: this.body.name,
                               description: this.body.description,
                               category: this.body.category,
-                              price: this.body.price,
+                              price: price,
                               amount: this.body.amount,
                               seller: this.body.seller
                     })
@@ -113,12 +116,13 @@ class ModelProducts {
                                                   {category: {[Sequelize.Op.like]: search}}
                                         ]},
                                         order: [["id", "DESC"]]
+                                        
                               })
                     } catch(e) {
                               throw new Error(e)
                     }
-          }
-
+          };
+          
 };
 
 module.exports = ModelProducts;

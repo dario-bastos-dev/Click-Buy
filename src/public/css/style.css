@@ -20,19 +20,6 @@ body {
           margin-top: 103px;   
 }
 
-/* Animações */
-/* Adicionar produto no carrinho */
-
-.fly-animation {
-    position: fixed;
-    z-index: 1000;
-    transition: transform 1s ease-in-out, opacity 1s ease-in-out;
-}
-
-.hidden {
-    display: none;
-}
-
 /* hover */
 /* Botões geral */
 .form-login button {
@@ -44,7 +31,7 @@ body {
           
 }
 
-.form-login button:hover, div#home form div button:hover, div#produtos2 div > button:hover {
+.form-login button:hover, div#home form div button:hover, div#produtos2 div > button:hover, div#produtos2 div > a:hover, #quant div button:hover {
           background-color: var(--Texto-1);
           border: 2px solid var(--Principal-1);
           color: var(--Principal-1);
@@ -58,11 +45,15 @@ body {
 
 nav {
           background-color: var(--Principal-1);
-          padding: 10px 0 20px 0 !important;
+          padding: 10px 0 20px 0;
           position: fixed !important;
-          width: 100% !important;
+          width: 100%;
           z-index: 10;
           top: 0;
+}
+
+button.navbar-toggler {
+    background-color: var(--Texto-1);
 }
 
 img {
@@ -109,8 +100,8 @@ li.carrinho >ion-icon {
           color: red;
           border: none;
           z-index: 1;
-          right: 155px;
-          bottom: 60px;
+          right: 11%;
+          bottom: 55%;
 }
 
 
@@ -148,6 +139,8 @@ li.carrinho >ion-icon {
           position: absolute;
           width: 100%;
           top: 100px;
+          right: 100px;
+          z-index: 20;
 }
 
 /* Meus produtos */
@@ -182,10 +175,15 @@ div.conteudo {
           width: 70%;
 }
 
-div.conteudo>img {
+div.conteudo>.img {
           border-radius: 8px;
           border: 3px solid var(--Principal-1);
           width: 200px;
+}
+
+div.conteudo>.img>img {
+    width: 100%;
+    border-radius: 8px;
 }
 
 div.conteudo>div#info {
@@ -228,7 +226,7 @@ div#titleBtn h1 {
           color: var(--Principal-1);
 }
 
-div#produtos div a>ion-icon {
+div.produtos div a>ion-icon {
           font-size: 25px;
           font-weight: bold;
 }
@@ -254,7 +252,7 @@ div#produtos2 div#btn {
           margin: auto;
 }
 
-div#produtos2 div button {
+div#produtos2 div button, div#produtos2 div a {
           background-color: var(--Principal-1);
           color: var(--Texto-1);
 }
@@ -270,7 +268,49 @@ div#home form div {
           height: 40px;
 }
 
-div#home form div button {
+div#home form div button, div#home form div a {
           background-color: var(--Principal-1);
           color: var(--Texto-1);
+}
+
+/* Produto específico */
+#quant {
+    width: 150px;
+}
+.quantity-input {
+    text-align: center;
+}
+
+#quant div button {
+    background-color: var(--Principal-1);
+    color: var(--Texto-1);
+}
+
+#quant div button.btn-compra {
+    width: 250px;
+    padding: 10px 20px;
+    text-transform: uppercase;
+    font-size: 16px;
+}
+
+div.princ .informacoes {
+          padding: 20px 20px 50px;
+          background-color: #fcfcfc;
+          border-radius: 14px;
+          border: 3px solid #f0f0f0;
+          margin: auto;
+}
+
+div .imagen img.image-2 {
+    width: 500px;
+    border: 3px solid var(--Principal-2);
+    border-radius: 8px;
+}
+
+div.princ {
+    margin: 0 0 0 100px ;
+}
+
+main#prod-unic {
+    margin-top: 150px;
 }

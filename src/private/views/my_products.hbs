@@ -18,17 +18,20 @@
 
                               <div class="mb-3 conteudo">
 
-                                        <img class="image" src="../img/products/{{dataValues.image}}"
+                                        <div class="img">
+
+                                                  <img class="image" src="../img/products/{{dataValues.image}}"
                                                   alt="Imagem do produto">
+                                        </div>
 
                                         <div id="info">
                                                   <h6 class="nome">{{dataValues.name}}</h6>
                                                   <h6 class="categoria">{{dataValues.category}}</h6>
-                                                  <h6 class="valor">Valor: <span>{{dataValues.price}}</span></h6>
+                                                  <h6 class="valor">Valor: R$ <span>{{dataValues.price}}</span></h6>
                                                   <h6 class="quantidade">Estoque: <span>{{dataValues.amount}}</span> </h6>
                                         </div>
 
-                                        <div>
+                                        <div id="btn-1">
                                                   <a href="" class="btn btn-danger"><ion-icon name="close-outline"></ion-icon></a>
                                         </div>
 
